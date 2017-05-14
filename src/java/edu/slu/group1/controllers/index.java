@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Jennelyn ocado
  */
-@WebServlet(name = "index", urlPatterns = {"/index"})
+@WebServlet(name = "index", urlPatterns = {"/"})
 public class index extends HttpServlet {
 
     /**
@@ -62,7 +62,7 @@ public class index extends HttpServlet {
       PrintWriter out = response.getWriter();
             out.write("@ /index");
             request.setAttribute("pangalan", "Clouds");
-            request.getRequestDispatcher("index.jsp").forward(request, response);  
+            request.getRequestDispatcher("dashboard.jsp").forward(request, response);  
     }
 
     /**

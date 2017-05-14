@@ -16,13 +16,14 @@
         <title>Add Service</title>
     </head>
     <%@include file="partials/header.jsp" %>
-         ${pangalan}
+     
          
          
    
         <sql:setDataSource var = "snapshot" driver = "com.mysql.jdbc.Driver"
                            url = "jdbc:mysql://localhost/webtek-database-finals"
-                           user = "root"  password = ""/>      
+                           user = "root"  password = ""/>   
+        <h1 class="page-header">Add Services</h1>
         <form method="post">
         <table class="table table-bordered">
             <tr>

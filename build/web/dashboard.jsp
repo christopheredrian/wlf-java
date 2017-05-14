@@ -23,7 +23,7 @@
         <a href="PenReq.jsp">
             <h1 class="page-header">Dashboard</h1>
             <div class="row">
-                <div class="col-md-4 col-sm-6 col-xs-13">
+                <div class="col-md-5 col-sm-6 col-xs-13">
                     <div class="info-box">
                         <span class="info-box-icon bg-aqua"><i class="fa fa-clock-o"></i></span>
                         <div class="info-box-content">
@@ -41,25 +41,8 @@
                     <!-- /.info-box -->
                 </div>
         </a>
-        <a href="AppReq.jsp">
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                <div class="info-box">
-                    <span class="info-box-icon bg-red"><i class="fa fa-thumbs-o-up"></i></span>
-
-                    <div class="info-box-content">
-                        <span class="info-box-text">Approved Request</span>
-                        <sql:query dataSource = "${snapshot}" var = "result">
-                            SELECT COUNT(*) as 'approvedRequests' from requests WHERE status = 'Approved';
-                        </sql:query>
-                        <span class="info-box-number"> ${result.rows[0].approvedRequests}</span>
-                    </div>
-                    <!-- /.info-box-content -->
-                </div>
-                <!-- /.info-box -->
-            </div>
-        </a>
         <a href="TransHis.jsp">
-            <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="col-md-5 col-sm-6 col-xs-12">
                 <div class="info-box">
                     <span class="info-box-icon bg-green"><i class="fa fa-dollar"></i></span>
 

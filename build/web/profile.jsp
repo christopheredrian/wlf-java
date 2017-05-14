@@ -14,9 +14,6 @@
             input[type=text]{
                 width:50%;
             }
-            form{
-                float: right;
-            }
         </style>
     </head>
     <body>
