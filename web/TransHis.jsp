@@ -33,14 +33,14 @@
             <tr>
                 <th>Customer Name</th>
                 <th>Service Availed</th>
-                <th>Price</th>
+                <th>Date</th>
             </tr>
 
             <c:forEach var = "row" items = "${result.rows}">
                 <tr>
                     <td><c:out value = "${row.fname} ${row.lname}"/></td>
                     <td><c:out value = "${row.serviceAvailed}"/></td>
-                    <td><c:out value = "${row.price}"/></td>
+                    <td><c:out value = "${row.date}"/></td>
                 </tr>
             </c:forEach>
           
