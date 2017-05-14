@@ -29,8 +29,6 @@
             SELECT * from services;
         </sql:query>
             
-            <c:if >
-
         <table class="table table-bordered">
             <tr>
                 <th>Service ID</th>
