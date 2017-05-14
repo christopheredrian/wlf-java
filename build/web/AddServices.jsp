@@ -16,7 +16,10 @@
         <title>Add Service</title>
     </head>
     <%@include file="partials/header.jsp" %>
-
+     
+         
+         
+   
         <sql:setDataSource var = "snapshot" driver = "com.mysql.jdbc.Driver"
                            url = "jdbc:mysql://localhost/webtek-database-finals"
                            user = "root"  password = ""/>   

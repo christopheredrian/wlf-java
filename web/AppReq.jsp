@@ -5,6 +5,10 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import = "java.io.*,java.util.*,java.sql.*"%>
+<%@ page import = "javax.servlet.http.*,javax.servlet.*" %>
+<%@ taglib prefix = "c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix = "sql"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -21,19 +25,19 @@
                            user = "root"  password = ""/>
 
         <sql:query dataSource = "${snapshot}" var = "result">
-            SELECT * from requests;
+            SELECT * from customer;
         </sql:query>
 
         <table class="table table-bordered">
             <tr>
-                <th>Service ID</th>
-                <th>Service Name</th>
+                <th>Customer Name</th>
+                <th>Service Availed</th>
                 <th>Price</th>
             </tr>
 
             <c:forEach var = "row" items = "${result.rows}">
                 <tr>
-                    <td><c:out value = "${row.service_id}"/></td>
+                    <td><c:out value = "${row.fname} ${row.lname}"/></td>
                     <td><c:out value = "${row.service_name}"/></td>
                     <td><c:out value = "${row.price}"/></td>
                 </tr>

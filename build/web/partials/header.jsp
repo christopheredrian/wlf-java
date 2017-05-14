@@ -228,7 +228,7 @@ desired effect
                     <!-- Optionally, you can add icons to the links -->
                     <!--Dashboard-->
                     <li class="treeview">
-                        <a href="dashboard.jsp"><i class="fa fa-dashboard"></i> <span>Dashboard</span> </a>
+                        <a href="index.jsp"><i class="fa fa-dashboard"></i> <span>Dashboard</span> </a>
                         <!-- Dashboard -->
                     </li>
                 </ul>
