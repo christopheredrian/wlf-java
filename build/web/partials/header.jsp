@@ -237,7 +237,7 @@ desired effect
                     <li class="header">Service Management</li>
                    
                     <li class="treeview">
-                    <li><a href="AddServices.jsp"><i class="fa fa-car"></i>Services</a></li>
+                    <li><a href="Services.jsp"><i class="fa fa-car"></i>Services</a></li>
                     </li>
 
                 </ul>
