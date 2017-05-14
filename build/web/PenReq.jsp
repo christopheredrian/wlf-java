@@ -13,6 +13,7 @@
 <html>
      <title>Pending Requests</title>
     <head>
+        <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
       
     </head>
@@ -27,7 +28,7 @@
                 
         </sql:query>
          <form method="post">       
-         <table class="table table-bordered">
+         <table id="data-table" class="table table-bordered">
             <tr>
                 <th>Customer Name</th>
                 <th>Service Availed</th>
@@ -54,6 +55,13 @@
                 </tr>
             </c:forEach>
          </table>
+             <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+  <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+  <script>
+  $(function(){
+    $("#data-table").dataTable();
+  })
+  </script>
              
              
          </form>
