@@ -23,7 +23,7 @@
         <a href="PenReq.jsp">
             <h1 class="page-header">Dashboard</h1>
             <div class="row">
-                <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="col-md-4 col-sm-6 col-xs-13">
                     <div class="info-box">
                         <span class="info-box-icon bg-aqua"><i class="fa fa-clock-o"></i></span>
                         <div class="info-box-content">
@@ -42,7 +42,7 @@
                 </div>
         </a>
         <a href="AppReq.jsp">
-            <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="col-md-4 col-sm-6 col-xs-12">
                 <div class="info-box">
                     <span class="info-box-icon bg-red"><i class="fa fa-thumbs-o-up"></i></span>
 
@@ -59,7 +59,7 @@
             </div>
         </a>
         <a href="TransHis.jsp">
-            <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="col-md-4 col-sm-6 col-xs-12">
                 <div class="info-box">
                     <span class="info-box-icon bg-green"><i class="fa fa-dollar"></i></span>
 

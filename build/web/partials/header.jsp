@@ -228,7 +228,7 @@ desired effect
                     <!-- Optionally, you can add icons to the links -->
                     <!--Dashboard-->
                     <li class="treeview">
-                        <a href="dashboard.jsp"><i class="fa fa-link"></i> <span>Dashboard</span> </a>
+                        <a href="dashboard.jsp"><i class="fa fa-dashboard"></i> <span>Dashboard</span> </a>
                         <!-- Dashboard -->
                     </li>
                 </ul>
@@ -237,7 +237,7 @@ desired effect
                     <li class="header">Service Management</li>
                    
                     <li class="treeview">
-                    <li><a href="ViewServices.jsp"><i class="fa fa-link"></i>Services</a></li>
+                    <li><a href="ViewServices.jsp"><i class="fa fa-car"></i>Services</a></li>
                     </li>
 
                 </ul>
