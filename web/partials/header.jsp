@@ -234,23 +234,10 @@ desired effect
                 </ul>
                 <!-- Sidebar Menu -->
                 <ul class="sidebar-menu">
-                    <li class="header">Services</li>
+                    <li class="header">Service Management</li>
                    
                     <li class="treeview">
-                    <li><a href="ViewServices.jsp"><i class="fa fa-link"></i>View Services</a></li>
-                     <li><a href="ViewServices.jsp"><i class="fa fa-link"></i>Edit Services</a></li>
-                    </li>
-                    <li class="treeview">
-                        <a href="#"><i class="fa fa-link"></i> <span>Transactions</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li><a href="PenReq.jsp">Pending Requests</a></li>
-                            <li><a href="AppReq.jsp">Approved Requests</a></li>
-                            <li><a href="TransHis.jsp">Transaction History</a></li>
-                        </ul>
+                    <li><a href="ViewServices.jsp"><i class="fa fa-link"></i>Services</a></li>
                     </li>
 
                 </ul>

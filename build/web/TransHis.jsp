@@ -23,7 +23,10 @@
                            url = "jdbc:mysql://localhost/webtek-database-finals"
                            user = "root"  password = ""/>
          <sql:query dataSource = "${snapshot}" var = "result">
-                SELECT * FROM customer;
+                SELECT * FROM customer INNER JOIN invoice ON customer.cu_id=invoice.cu_id 
+                INNER JOIN arrangement ON customer.cu_id=arrangement.cu_id 
+                INNER JOIN services ON arrangement.service_id=services.service_id;
+                
         </sql:query>
         
         <table class="table table-bordered">
@@ -37,7 +40,7 @@
                 <tr>
                     <td><c:out value = "${row.fname} ${row.lname}"/></td>
                     <td><c:out value = "${row.serviceAvailed}"/></td>
-                    <td><c:out value = "${row.lname}"/></td>
+                    <td><c:out value = "${row.price}"/></td>
                 </tr>
             </c:forEach>
           

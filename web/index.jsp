@@ -228,31 +228,16 @@ desired effect
         <!-- Optionally, you can add icons to the links -->
         <!--Dashboard-->
          <li class="treeview">
- <a href="dashboard.jsp"><i class="fa fa-link"></i> <span>Dashboard</span> </a>
+ <a href="dashboard.jsp"><i class="fa fa-dashboard"></i> <span>Dashboard</span> </a>
       <!-- Dashboard -->
          </li>
       </ul>
       <ul class="sidebar-menu">
-        <li class="header">Services</li>
-         <li class="treeview">
-         <i class="fa fa-link"></i> <span>Services</span>
+        <li class="header">Service Management</li>
             
           <li class="treeview-menu">
-            <li><a href="ViewServices.jsp">View Services</a></li>
-            <li><a href="EditServices.jsp">Edit Services</a></li>
+            <li><a href="#"><i class="fa fa-car"></i>Services</a></li>
           </li>
-        </li>
-         <li class="treeview">
-          <a href="#"><i class="fa fa-link"></i> <span>Transactions</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="PenReq.jsp">Pending Requests</a></li>
-            <li><a href="AppReq.jsp">Approved Requests</a></li>
-            <li><a href="TransHis.jsp">Transaction History</a></li>
-          </ul>
         </li>
         
       </ul>
