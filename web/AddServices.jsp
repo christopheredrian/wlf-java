@@ -26,11 +26,11 @@
         <form method="post">
         <table class="table table-bordered">
             <tr>
-                <th>Service ID</th>
+                <th>Service Name</th>
                 <td><input type="text" name="service_id"></td>
                 </tr>
                 <tr>
-                <th>Service Name</th>
+                <th>Service Description</th>
                 <td><input type="text" name="service_name"></td>
                 </tr>
                 <tr>
@@ -47,9 +47,9 @@
         <c:if test="${pageContext.request.method=='POST'}">
         <c:catch var="exception">
         <sql:update dataSource="${snapshot}" var="updatedTable">
-        INSERT INTO services (service_id,service_name,price) VALUES (?, ?, ?)
-        <sql:param value="${param.service_id}" />
+        INSERT INTO services (service_name,description,price) VALUES (?, ?, ?)
         <sql:param value="${param.service_name}" />
+        <sql:param value="${param.description}" />
         <sql:param value="${param.price}" />
         </sql:update>
         <c:if test="${updatedTable>=1}">
