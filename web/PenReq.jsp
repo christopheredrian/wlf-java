@@ -26,7 +26,7 @@
                 SELECT * FROM requests INNER JOIN customer ON requests.cu_id=customer.cu_id INNER JOIN invoice ON customer.cu_id=invoice.cu_id;
                 
         </sql:query>
-                
+         <form method="post">       
          <table class="table table-bordered">
             <tr>
                 <th>Customer Name</th>
@@ -39,11 +39,28 @@
                     <td><c:out value = "${row.fname} ${row.lname}"/></td>
                     <td><c:out value = "${row.serviceAvailed}"/></td>
                     <td><c:out value = "${row.date}"/></td>
-                    <td>
+                    <td><input type="submit" value="approve">
+                        <sql:update dataSource="${snapshot}" var="dbResult">
+                                UPDATE requests SET status=? where req_id='';
+                            <sql:param value="Approved" />
+                         </sql:update>
+                        <input type="submit" value="decline">
+                        <sql:update dataSource="${snapshot}" var="dbResult">
+                                UPDATE requests SET status=?;
+                            <sql:param value="Pending" />
+                         </sql:update>
+
+                    </td>
                 </tr>
             </c:forEach>
+         </table>
+             
+             
+         </form>
+                
+                
           
-        </table>
+        
     </body>
         <%@include file="partials/footer.jsp" %>
 </html>
