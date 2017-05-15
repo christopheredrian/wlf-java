@@ -43,7 +43,7 @@
                 </tr>
                 <tr>
                 <th>Telephone Number</th>
-                <td><c:out value = "${row.tel_no}"/></td>
+                
                 <td><input type="text" name="tel_no"></td>
                 </tr>
                 <tr>
@@ -68,15 +68,14 @@
                 <c:if test="${pageContext.request.method=='POST'}">
                 <c:catch var="exception">
                 <sql:update dataSource="${snapshot}" var="updatedTable">
-                 UPDATE Customers
+                 UPDATE `service provider`
                 SET address=?, tel_no=?, email_address=? WHERE sp_id='201'
                 <sql:param value="${param.address}" />
                 <sql:param value="${param.tel_no}" />
                 <sql:param value="${param.email_address}" />
                 </sql:update>
                 <c:if test="${updatedTable>=1}">
-                <font size="5" color='green'> Congratulations ! Data updated
-                successfully.</font>
+                <c:redirect url="profile.jsp"/>
                 </c:if>
                 </c:catch>
                 <c:if test="${exception!=null}">
