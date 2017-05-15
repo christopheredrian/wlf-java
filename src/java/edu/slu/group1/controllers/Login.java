@@ -42,7 +42,16 @@ public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.getWriter().print("redirect to ..");
+        HttpSession session = request.getSession(true);
+        String username = request.getParameter("username");
+        if (username != null) {
+            session.setAttribute("username", username);
+            request.getRequestDispatcher("/").forward(request, response);
+        } else {
+            session.invalidate();
+            response.getWriter().print("redirect to ..");
+//            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        }
     }
 
     /**
@@ -57,15 +66,16 @@ public class Login extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession(true);
-        String sp_id = request.getParameter("sp_id");
-        if (sp_id != null) {
-            session.setAttribute(sp_id, sp_id);
+        String username = request.getParameter("usename");
+        if (username != null) {
+            session.setAttribute("username", username);
+            request.getRequestDispatcher("/").forward(request, response);
         } else {
             session.invalidate();
             response.getWriter().print("redirect to ..");
 //            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         }
-        
+
     }
 
     /**

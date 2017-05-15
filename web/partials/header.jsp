@@ -4,6 +4,7 @@
     Author     : Jennelyn ocado
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -77,7 +78,6 @@ desired effect
                 <!-- logo for regular state and mobile devices -->
                 <span class="logo-lg"><b>Service</b>Provider</span>
             </a>
-
             <!-- Header Navbar -->
             <nav class="navbar navbar-static-top" role="navigation">
                 <!-- Sidebar toggle button-->
@@ -239,7 +239,17 @@ desired effect
 
                     <li class="treeview">
                     <li><a href="Services.jsp"><i class="fa fa-car"></i>Services</a></li>
-                    </li>
+                    <li><a href="AddServices.jsp"><i class="fa fa-car"></i>Add Services</a></li>
+                    <li><a href="PenReq.jsp"><i class="fa fa-car"></i>Pending Requests</a></li>
+                                        <li><a href="Services.jsp"><i class="fa fa-usd"></i>Transactions</a></li>
+
+                </ul>
+
+                <ul class="sidebar-menu">
+                    <li class="header">Others</li>
+
+                    <li class="treeview">
+                    <li><a href="profile.jsp"><i class="fa fa-car"></i>Account Settings</a></li>
 
                 </ul>
                 <!-- /.sidebar-menu -->
@@ -253,5 +263,5 @@ desired effect
             <section class="content-header">
                 <!-- REQUIRED JS SCRIPTS -->
 
-        
+
 

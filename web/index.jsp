@@ -83,7 +83,7 @@
             <!-- /.box-footer -->
         </div>
         <sql:query dataSource = "${snapshot}" var = "result">
-            SELECT date as 'Date',  service_name as 'Service' FROM `webtek-database-finals`.requests NATURAL JOIN `service provider` NATURAL JOIN services ORDER BY DATE;        
+            SELECT date as 'Date',  service_name as 'Service' FROM `webtek-database-finals`.requests INNER JOIn`service provider` on `service provider`.`sp_id` = requests.sp_id INNER JOIN services on services.service_id = requests.service_id ORDER BY DATE;        
         </sql:query>
 
         <script>
@@ -105,7 +105,7 @@
             <c:forEach var = "row" items = "${result.rows}">
                                 {
 
-                                    title: '<c:out value = "${row.Service}"/>',
+                                    title: '<c:out value = "${row.service_name}"/>',
                                     start: '<c:out value = "${row.Date}"/>'
                                 },
 
@@ -120,13 +120,14 @@
                 )(jQuery);
             });
         </script>
-    </body>
-    <script src='fullcalendar/lib/moment.min.js'></script>
-    <script src="fullcalendar/lib/jquery.min.js"></script>
-    <script src='fullcalendar/fullcalendar.min.js'></script>
+        <script src='fullcalendar/lib/moment.min.js'></script>
+        <script src="fullcalendar/lib/jquery.min.js"></script>
+        <script src='fullcalendar/fullcalendar.min.js'></script>
 
-    <%@include file="partials/footer.jsp"%> 
-    <script src='fullcalendar/lib/moment.min.js'></script>
-    <script src='fullcalendar/lib/jquery.min.js'></script>
-    <script src='fullcalendar/fullcalendar.min.js'></script>
+        <%@include file="partials/footer.jsp"%> 
+        <script src='fullcalendar/lib/moment.min.js'></script>
+        <script src='fullcalendar/lib/jquery.min.js'></script>
+        <script src='fullcalendar/fullcalendar.min.js'></script>
+    </body>
+
 </html>
