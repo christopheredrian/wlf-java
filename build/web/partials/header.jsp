@@ -35,7 +35,8 @@
           apply the skin class to the body tag so the changes take effect.
     -->
     <link rel="stylesheet" href="dist/css/skins/skin-blue.min.css">
-
+    <link href='fullcalendar/fullcalendar.min.css' rel='stylesheet'/>
+    <link href='fullcalendar/fullcalendar.print.min.css' rel='stylesheet' media='print'/>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -235,7 +236,7 @@ desired effect
                 <!-- Sidebar Menu -->
                 <ul class="sidebar-menu">
                     <li class="header">Service Management</li>
-                   
+
                     <li class="treeview">
                     <li><a href="Services.jsp"><i class="fa fa-car"></i>Services</a></li>
                     </li>
@@ -252,9 +253,5 @@ desired effect
             <section class="content-header">
                 <!-- REQUIRED JS SCRIPTS -->
 
-                <!-- jQuery 2.2.3 -->
-                <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
-                <!-- Bootstrap 3.3.6 -->
-                <script src="bootstrap/js/bootstrap.min.js"></script>
-                <!-- AdminLTE App -->
-                <script src="dist/js/app.min.js"></script>
+        
+

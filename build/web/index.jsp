@@ -19,10 +19,10 @@
     <body>
         <%@include file="partials/header.jsp" %>
 
+        <div class="row">
 
-        <a href="PenReq.jsp">
-            <h1 class="page-header">Dashboard</h1>
-            <div class="row">
+            <a href="PenReq.jsp">
+                <h1 class="page-header">Dashboard</h1>
                 <div class="col-md-5 col-sm-6 col-xs-13">
                     <div class="info-box">
                         <span class="info-box-icon bg-aqua"><i class="fa fa-clock-o"></i></span>
@@ -40,25 +40,86 @@
                     </div>
                     <!-- /.info-box -->
                 </div>
-        </a>
-        <a href="TransHis.jsp">
-            <div class="col-md-5 col-sm-6 col-xs-12">
-                <div class="info-box">
-                    <span class="info-box-icon bg-green"><i class="fa fa-dollar"></i></span>
+            </a>
+            <a href="TransHis.jsp">
+                <div class="col-md-5 col-sm-6 col-xs-12">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-green"><i class="fa fa-dollar"></i></span>
 
-                    <div class="info-box-content">
-                        <span class="info-box-text">Transaction History</span>
-                        <sql:query dataSource = "${snapshot}" var = "result">
-                            SELECT COUNT(*) as 'approvedRequests' from invoice WHERE sp_id = '209';
-                        </sql:query>
-                        <span class="info-box-number"> ${result.rows[0].approvedRequests}</span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Transaction History</span>
+                            <sql:query dataSource = "${snapshot}" var = "result">
+                                SELECT COUNT(*) as 'approvedRequests' from invoice WHERE sp_id = '209';
+                            </sql:query>
+                            <span class="info-box-number"> ${result.rows[0].approvedRequests}</span>
+                        </div>
+                        <!-- /.info-box-content -->
                     </div>
-                    <!-- /.info-box-content -->
+                    <!-- /.info-box -->
                 </div>
-                <!-- /.info-box -->
+            </a>
+        </div>
+        <div class="box box-info">
+            <div class="box-header with-border">
+                <h3 class="box-title">Calendar</h3>
+
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                </div>
             </div>
-        </a>
-    </div>
-</body>
-<%@include file="partials/footer.jsp"%> 
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div id='calendar'></div>
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.box-body -->
+            <!--            <div class="box-footer clearfix">
+                            <a href="/admin/event/list" class="btn btn-sm btn-info btn-flat pull-right">View All Events</a>
+                        </div>-->
+            <!-- /.box-footer -->
+        </div>
+        <sql:query dataSource = "${snapshot}" var = "result">
+            SELECT date as 'Date',  service_name as 'Service' FROM `webtek-database-finals`.requests NATURAL JOIN `service provider` NATURAL JOIN services ORDER BY DATE;        
+        </sql:query>
+
+        <script>
+
+            window.addEventListener('DOMContentLoaded', function () {
+                (function ($) {
+                    $(document).ready(function () {
+                        $('#calendar').fullCalendar({
+                            header: {
+                                left: 'prev,next today',
+                                center: 'title',
+                                right: 'month,basicWeek,basicDay,listYear,listWeek'
+                            },
+                            defaultDate: '2017-05-12',
+                            navLinks: true, // can click day/week names to navigate views
+                            editable: false,
+                            eventLimit: true, // allow "more" link when too many events
+                            events: [
+                                {
+                                    title: 'Photography',
+                                    start: '2017-05-01'
+                                },
+                                {
+                                    title: 'Gardening',
+                                    start: '2015-02-01'
+                                }
+
+
+                            ]
+
+                        });
+                    });
+                })(jQuery);
+            });
+        </script>
+    </body>
+    <script src='fullcalendar/lib/moment.min.js'></script>
+    <script src="fullcalendar/lib/jquery.min.js"></script>
+    <script src='fullcalendar/fullcalendar.min.js'></script>
+    <%@include file="partials/footer.jsp"%> 
 </html>

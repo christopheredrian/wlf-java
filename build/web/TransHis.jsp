@@ -18,33 +18,38 @@
     </head>
     <body>
         <%@include file="partials/header.jsp" %>
-        
+
         <sql:setDataSource var = "snapshot" driver = "com.mysql.jdbc.Driver"
                            url = "jdbc:mysql://localhost/webtek-database-finals"
                            user = "root"  password = ""/>
-         <sql:query dataSource = "${snapshot}" var = "result">
-                SELECT * FROM customer INNER JOIN invoice ON customer.cu_id=invoice.cu_id 
-                INNER JOIN arrangement ON customer.cu_id=arrangement.cu_id 
-                INNER JOIN services ON arrangement.service_id=services.service_id;
-                
-        </sql:query>
-        
-        <table class="table table-bordered">
-            <tr>
-                <th>Customer Name</th>
-                <th>Service Availed</th>
-                <th>Date</th>
-            </tr>
+        <sql:query dataSource = "${snapshot}" var = "result">
+            SELECT * FROM customer INNER JOIN invoice ON customer.cu_id=invoice.cu_id 
+            INNER JOIN arrangement ON customer.cu_id=arrangement.cu_id 
+            INNER JOIN services ON arrangement.service_id=services.service_id;
 
-            <c:forEach var = "row" items = "${result.rows}">
+        </sql:query>
+
+        <table class="table table-bordered" id="data-table">
+            <thead>
                 <tr>
-                    <td><c:out value = "${row.fname} ${row.lname}"/></td>
-                    <td><c:out value = "${row.serviceAvailed}"/></td>
-                    <td><c:out value = "${row.date}"/></td>
+                    <th>Customer Name</th>
+                    <th>Service Availed</th>
+                    <th>Date</th>
+                 
                 </tr>
-            </c:forEach>
-          
+            </thead>
+
+            <tbody>
+                <c:forEach var = "row" items = "${result.rows}">
+                    <tr>
+                        <td><c:out value = "${row.fname} ${row.lname}"/></td>
+                        <td><c:out value = "${row.serviceAvailed}"/></td>
+                        <td><c:out value = "${row.date}"/></td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+
         </table>
     </body>
-         <%@include file="partials/footer.jsp" %>
+    <%@include file="partials/footer.jsp" %>
 </html>
