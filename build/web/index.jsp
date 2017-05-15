@@ -10,6 +10,8 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link href='fullcalendar/fullcalendar.min.css' rel='stylesheet' />
+        <link href='fullcalendar/fullcalendar.print.min.css' rel='stylesheet' media='print' />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>DashBoard</title>
     </head>
@@ -18,11 +20,11 @@
 
     <body>
         <%@include file="partials/header.jsp" %>
+        <h1 class="page-header">Dashboard</h1>
 
         <div class="row">
 
             <a href="PenReq.jsp">
-                <h1 class="page-header">Dashboard</h1>
                 <div class="col-md-5 col-sm-6 col-xs-13">
                     <div class="info-box">
                         <span class="info-box-icon bg-aqua"><i class="fa fa-clock-o"></i></span>
@@ -100,26 +102,31 @@
                             editable: false,
                             eventLimit: true, // allow "more" link when too many events
                             events: [
+            <c:forEach var = "row" items = "${result.rows}">
                                 {
-                                    title: 'Photography',
-                                    start: '2017-05-01'
+
+                                    title: '<c:out value = "${row.Service}"/>',
+                                    start: '<c:out value = "${row.Date}"/>'
                                 },
-                                {
-                                    title: 'Gardening',
-                                    start: '2015-02-01'
-                                }
+
+            </c:forEach>
 
 
                             ]
 
                         });
                     });
-                })(jQuery);
+                }
+                )(jQuery);
             });
         </script>
     </body>
     <script src='fullcalendar/lib/moment.min.js'></script>
     <script src="fullcalendar/lib/jquery.min.js"></script>
     <script src='fullcalendar/fullcalendar.min.js'></script>
+
     <%@include file="partials/footer.jsp"%> 
+    <script src='fullcalendar/lib/moment.min.js'></script>
+    <script src='fullcalendar/lib/jquery.min.js'></script>
+    <script src='fullcalendar/fullcalendar.min.js'></script>
 </html>
