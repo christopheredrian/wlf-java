@@ -24,11 +24,12 @@
                            user = "root"  password = ""/>
 
         <sql:query dataSource = "${snapshot}" var = "result">
-            SELECT * from services;
+            SELECT * FROM `services` INNER JOIN requests ON services.service_id = requests.service_id INNER JOIN `service provider` ON `service provider`.`sp_id` = requests.sp_id WHERE username = ?;
+            <sql:param value="${sessionScope.username}"/>
         </sql:query>
         <a href="AddServices.jsp" class="btn btn-info" role="button" style="float:right;">Add Service</a>
         <h1 class="page-header" style="margin-bottom: 40px">Services</h1>
-
+        <h2 class="text-danger">${sessionScope.username}</h2>
         <table class="table table-bordered" id="data-table">
             <thead>
                 <tr>
