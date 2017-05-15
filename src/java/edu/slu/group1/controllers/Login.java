@@ -7,6 +7,7 @@ package edu.slu.group1.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -44,9 +45,13 @@ public class Login extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession(true);
         String username = request.getParameter("username");
-        if (username != null) {
+        String sp_id = request.getParameter("sp_id");
+
+        if (username != null && sp_id != null) {
             session.setAttribute("username", username);
+            session.setAttribute("sp_id", sp_id);
             request.getRequestDispatcher("/").forward(request, response);
+
         } else {
             session.invalidate();
             response.getWriter().print("redirect to ..");

@@ -21,8 +21,8 @@
         </style>
     </head>
     <body>
-         <%@include file="partials/header.jsp" %>
-         <sql:setDataSource var = "snapshot" driver = "com.mysql.jdbc.Driver"
+        <%@include file="partials/header.jsp" %>
+        <sql:setDataSource var = "snapshot" driver = "com.mysql.jdbc.Driver"
                            url = "jdbc:mysql://localhost/webtek-database-finals"
                            user = "root"  password = ""/>
 
@@ -30,61 +30,61 @@
             SELECT * from `service provider` where username = ?
             <sql:param value="${sessionScope.username}"/>
         </sql:query>
-         <form method="post">
-         <table class="table table-bordered">
-             <c:forEach var = "row" items = "${result.rows}">
-            <tr>
-                <th>Service Provider Name</th>
-                <td><c:out value = "${row.fname} ${row.lname}"/></td>
-                </tr>
-                <tr>
-                <th>Address</th>
-                
-                <td><input type="text" name="address" value="${row.address}"/></td>
-                </tr>
-                <tr>
-                <th>Telephone Number</th>
-               
-                <td><input type="text" name="tel_no" value="${row.tel_no}"/></td>
-                </tr>
-                <tr>
-                <th>Email Address</th>
-                
-                <td><input type="text" name="email_address" value="${row.email_address}"/></td>
-                </tr>
-                <tr>
-                <th>Birthday</th>
-                <td><c:out value = "${row.birthday}"/></td>
-                </tr>
-                <tr>
-                <th>Gender</th>
-                <td><c:out value = "${row.gender}"/></td>
-                </tr>
-                <tr>
-                <td></td>
-                <td></td>
-                <td><input type="submit" value="submit"></td>
-                </tr>
-            </c:forEach>
+        <form method="post">
+            <table class="table table-bordered">
+                <c:forEach var = "row" items = "${result.rows}">
+                    <tr>
+                        <th>Service Provider Name</th>
+                        <td><c:out value = "${row.fname} ${row.lname}"/></td>
+                    </tr>
+                    <tr>
+                        <th>Address</th>
+
+                        <td><input type="text" name="address" value="${row.address}"/></td>
+                    </tr>
+                    <tr>
+                        <th>Telephone Number</th>
+
+                        <td><input type="text" name="tel_no" value="${row.tel_no}"/></td>
+                    </tr>
+                    <tr>
+                        <th>Email Address</th>
+
+                        <td><input type="text" name="email_address" value="${row.email_address}"/></td>
+                    </tr>
+                    <tr>
+                        <th>Birthday</th>
+                        <td><c:out value = "${row.birthday}"/></td>
+                    </tr>
+                    <tr>
+                        <th>Gender</th>
+                        <td><c:out value = "${row.gender}"/></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td><input type="submit" value="submit"></td>
+                    </tr>
+                </c:forEach>
                 <c:if test="${pageContext.request.method=='POST'}">
-                <c:catch var="exception">
-                <sql:update dataSource="${snapshot}" var="updatedTable">
-                 UPDATE `service provider`
-                SET address=?, tel_no=?, email_address=? WHERE username=?
-                <sql:param value="${param.address}" />
-                <sql:param value="${param.tel_no}" />
-                <sql:param value="${param.email_address}"/>
-                <sql:param value="${sessionScope.username}"/>
-                </sql:update>
-                <c:if test="${updatedTable>=1}">
-                    <c:redirect url="profile.jsp"/>
+                    <c:catch var="exception">
+                        <sql:update dataSource="${snapshot}" var="updatedTable">
+                            UPDATE `service provider`
+                            SET address=?, tel_no=?, email_address=? WHERE username=?
+                            <sql:param value="${param.address}" />
+                            <sql:param value="${param.tel_no}" />
+                            <sql:param value="${param.email_address}"/>
+                            <sql:param value="${sessionScope.username}"/>
+                        </sql:update>
+                        <c:if test="${updatedTable>=1}">
+                            <c:redirect url="profile.jsp"/>
+                        </c:if>
+                    </c:catch>
+                    <c:if test="${exception!=null}">
+                        <c:out value="Unable to update data in database." />
+                    </c:if>
                 </c:if>
-                </c:catch>
-                <c:if test="${exception!=null}">
-                <c:out value="Unable to update data in database." />
-                </c:if>
-                </c:if>
-        </table>       
+            </table>       
     </body>
-     <%@include file="partials/footer.jsp"%>  
+    <%@include file="partials/footer.jsp"%>  
 </html>

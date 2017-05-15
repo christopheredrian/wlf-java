@@ -37,6 +37,7 @@
         <table id="data-table" class="table table-bordered">
             <thead>
                 <tr>
+                    <th>Request Id</th>
                     <th>Customer Name</th>
                     <th>Service Availed</th>
                     <th>Target Date of Tutorial</th>
@@ -48,12 +49,14 @@
             <tbody>
                 <c:forEach var = "row" items = "${result.rows}">
                     <tr>
+                        <td><c:out value = "${row.req_id}"/></td>
                         <td><c:out value = "${row.fname} ${row.lname}"/></td>
                         <td><c:out value = "${row.serviceAvailed}"/></td>
                         <td><c:out value = "${row.date}"/></td>
                         <td><c:out value = "${row.status}"/></td>
                         <td>
-                            <form action="approve" method="post">
+                            <c:if test="${row.status == 'Pending'}">
+                                <form action="approve" method="post">
                                 <input type="hidden" name="cu_id" value="${row.cu_id}">
                                 <input type="hidden" name="req_id" value="${row.req_id}">
                                 <button type="submit" class="btn btn-flat btn-success btn-block">
@@ -67,6 +70,7 @@
                                     Reject
                                 </button>
                             </form>
+                            </c:if>
                         </td>
                     </tr>
                 </c:forEach>

@@ -16,54 +16,55 @@
         <title>Add Service</title>
     </head>
     <%@include file="partials/header.jsp" %>
-     
-         
-         
-   
-        <sql:setDataSource var = "snapshot" driver = "com.mysql.jdbc.Driver"
-                           url = "jdbc:mysql://localhost/webtek-database-finals"
-                           user = "root"  password = ""/>   
-        <h1 class="page-header">Add Services</h1>
-        <form method="post">
+    <h3>${sessionScope.sp_id}</h3>
+
+
+
+    <sql:setDataSource var = "snapshot" driver = "com.mysql.jdbc.Driver"
+                       url = "jdbc:mysql://localhost/webtek-database-finals"
+                       user = "root"  password = ""/>   
+    <h1 class="page-header">Add Services</h1>
+    <form method="post">
         <table class="table table-bordered">
             <tr>
                 <th>Service Name</th>
                 <td><input type="text" name="service_name"></td>
-                </tr>
-                <tr>
+            </tr>
+            <tr>
                 <th>Service Description</th>
                 <td><input type="text" name="description"></td>
-                </tr>
-                <tr>
+            </tr>
+            <tr>
                 <th>Price</th>
                 <td><input type="text" name="price"></td>
-                <tr>
+            <tr>
                 <td></td>
                 <td><input type="submit" value="submit"></td>
-                </tr>
+            </tr>
             </tr>
 
         </table>
-        </form>
-        <c:if test="${pageContext.request.method=='POST'}">
+    </form>
+    <c:if test="${pageContext.request.method=='POST'}">
         <c:catch var="exception">
-        <sql:update dataSource="${snapshot}" var="updatedTable">
-        INSERT INTO services (service_name,description,price) 
-        VALUES (?, ?, ?)
-        <sql:param value="${param.service_name}" />
-        <sql:param value="${param.description}" />
-        <sql:param value="${param.price}" />
-        </sql:update>
-        <c:if test="${updatedTable>=1}">
-        <font size="5" color='green'> Congratulations ! Data inserted
-        successfully.</font>
-        </c:if>
+            <sql:update dataSource="${snapshot}" var="updatedTable">
+                INSERT INTO services (service_name,description,price,sp_id) 
+                VALUES (?, ?, ?, ?)
+                <sql:param value="${param.service_name}" />
+                <sql:param value="${param.description}" />
+                <sql:param value="${param.price}" />
+                <sql:param value="${sessionScope.sp_id}" />
+            </sql:update>
+            <c:if test="${updatedTable>=1}">
+                <font size="5" color='green'> Congratulations ! Data inserted
+                successfully.</font>
+            </c:if>
         </c:catch>
         <c:if test="${exception!=null}">
-        <c:out value="Unable to insert data in database." />
+            <c:out value="Unable to insert data in database." />
         </c:if>
-        </c:if>
+    </c:if>
 
-    </body>
-    <%@include file="partials/footer.jsp" %>
+</body>
+<%@include file="partials/footer.jsp" %>
 </html>
