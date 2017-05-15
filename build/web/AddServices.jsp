@@ -28,11 +28,11 @@
         <table class="table table-bordered">
             <tr>
                 <th>Service Name</th>
-                <td><input type="text" name="service_id"></td>
+                <td><input type="text" name="service_name"></td>
                 </tr>
                 <tr>
                 <th>Service Description</th>
-                <td><input type="text" name="service_name"></td>
+                <td><input type="text" name="description"></td>
                 </tr>
                 <tr>
                 <th>Price</th>
