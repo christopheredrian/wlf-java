@@ -27,7 +27,8 @@
                            user = "root"  password = ""/>
 
         <sql:query dataSource = "${snapshot}" var = "result">
-            SELECT * from `service provider` where sp_id = '201';
+            SELECT * from `service provider` where username = ?
+            <sql:param value="${sessionScope.username}"/>
         </sql:query>
          <form method="post">
          <table class="table table-bordered">
@@ -38,18 +39,18 @@
                 </tr>
                 <tr>
                 <th>Address</th>
-                <td><c:out value = "${row.address}"/></td>
-                <td><input type="text" name="address"></td>
+                
+                <td><input type="text" name="address" value="${row.address}"/></td>
                 </tr>
                 <tr>
                 <th>Telephone Number</th>
-                
-                <td><input type="text" name="tel_no"></td>
+               
+                <td><input type="text" name="tel_no" value="${row.tel_no}"/></td>
                 </tr>
                 <tr>
                 <th>Email Address</th>
-                <td><c:out value = "${row.email_address}"/></td>
-                <td><input type="text" name="email_address"></td>
+                
+                <td><input type="text" name="email_address" value="${row.email_address}"/></td>
                 </tr>
                 <tr>
                 <th>Birthday</th>
@@ -69,13 +70,14 @@
                 <c:catch var="exception">
                 <sql:update dataSource="${snapshot}" var="updatedTable">
                  UPDATE `service provider`
-                SET address=?, tel_no=?, email_address=? WHERE sp_id='201'
+                SET address=?, tel_no=?, email_address=? WHERE username=?
                 <sql:param value="${param.address}" />
                 <sql:param value="${param.tel_no}" />
-                <sql:param value="${param.email_address}" />
+                <sql:param value="${param.email_address}"/>
+                <sql:param value="${sessionScope.username}"/>
                 </sql:update>
                 <c:if test="${updatedTable>=1}">
-                <c:redirect url="profile.jsp"/>
+                    <c:redirect url="profile.jsp"/>
                 </c:if>
                 </c:catch>
                 <c:if test="${exception!=null}">

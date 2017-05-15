@@ -48,7 +48,8 @@
         <c:if test="${pageContext.request.method=='POST'}">
         <c:catch var="exception">
         <sql:update dataSource="${snapshot}" var="updatedTable">
-        INSERT INTO services (service_name,description,price) VALUES (?, ?, ?)
+        INSERT INTO services (service_name,description,price) 
+        VALUES (?, ?, ?)
         <sql:param value="${param.service_name}" />
         <sql:param value="${param.description}" />
         <sql:param value="${param.price}" />

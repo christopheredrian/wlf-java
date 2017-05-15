@@ -24,7 +24,12 @@
                            url = "jdbc:mysql://localhost/webtek-database-finals"
                            user = "root"  password = ""/>
         <sql:query dataSource = "${snapshot}" var = "result">
-            SELECT requests.req_id, requests.cu_id, fname, lname, serviceAvailed, requests.date, requests.status FROM requests INNER JOIN customer ON requests.cu_id=customer.cu_id INNER JOIN invoice ON customer.cu_id=invoice.cu_id;
+            SELECT requests.req_id, requests.cu_id, customer.fname, customer.lname, serviceAvailed, requests.date, requests.status 
+            FROM requests INNER JOIN customer ON requests.cu_id=customer.cu_id 
+            INNER JOIN invoice ON customer.cu_id=invoice.cu_id
+            INNER JOIN `service provider` on `service provider`.sp_id = requests.sp_id
+            WHERE `service provider`.username = ?;
+            <sql:param value="${sessionScope.username}"/>
 
         </sql:query>
         <h1 class="page-header" style="margin-bottom: 40px">Pending Requests</h1>

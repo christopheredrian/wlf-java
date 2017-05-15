@@ -34,7 +34,9 @@
                                                url = "jdbc:mysql://localhost/webtek-database-finals"
                                                user = "root"  password = ""/>
                             <sql:query dataSource = "${snapshot}" var = "result">
-                                SELECT COUNT(*) as 'requestsCount' from requests WHERE status = 'Pending';
+                                SELECT COUNT(*) as 'requestsCount' from requests inner join `service provider` 
+                                on `service provider`.sp_id = requests.sp_id WHERE status = 'Pending' and username = ?;
+                                <sql:param value="${sessionScope.username}"/>
                             </sql:query>
                             <span class="info-box-number"> ${result.rows[0].requestsCount}</span>
                         </div>
@@ -51,7 +53,8 @@
                         <div class="info-box-content">
                             <span class="info-box-text">Transaction History</span>
                             <sql:query dataSource = "${snapshot}" var = "result">
-                                SELECT COUNT(*) as 'approvedRequests' from invoice WHERE sp_id = '209';
+                                SELECT COUNT(*) as 'approvedRequests' from invoice INNER JOIN `service provider` on `service provider`.sp_id = invoice.sp_id WHERE username = ?;
+                            <sql:param value="${sessionScope.username}"/>
                             </sql:query>
                             <span class="info-box-number"> ${result.rows[0].approvedRequests}</span>
                         </div>
@@ -83,7 +86,12 @@
             <!-- /.box-footer -->
         </div>
         <sql:query dataSource = "${snapshot}" var = "result">
-            SELECT date as 'Date',  service_name as 'Service' FROM `webtek-database-finals`.requests INNER JOIn`service provider` on `service provider`.`sp_id` = requests.sp_id INNER JOIN services on services.service_id = requests.service_id ORDER BY DATE;        
+            SELECT date as 'Date',  service_name as 'Service' 
+            FROM `webtek-database-finals`.requests 
+            INNER JOIn `service provider` on `service provider`.`sp_id` = requests.sp_id 
+            INNER JOIN services on services.service_id = requests.service_id 
+            WHERE username = ? ORDER BY DATE;
+            <sql:param value="${sessionScope.username}"/>
         </sql:query>
 
         <script>

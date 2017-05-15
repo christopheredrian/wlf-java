@@ -25,8 +25,10 @@
         <sql:query dataSource = "${snapshot}" var = "result">
             SELECT * FROM customer INNER JOIN invoice ON customer.cu_id=invoice.cu_id 
             INNER JOIN arrangement ON customer.cu_id=arrangement.cu_id 
-            INNER JOIN services ON arrangement.service_id=services.service_id;
-
+            INNER JOIN services ON arrangement.service_id=services.service_id 
+            INNER JOIN `service provider` on arrangement.sp_id = `service provider`.sp_id
+            WHERE `service provider`.username = ?;
+            <sql:param value="${sessionScope.username}"/>
         </sql:query>
 
         <table class="table table-bordered" id="data-table">
