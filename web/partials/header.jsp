@@ -6,6 +6,9 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import = "java.io.*,java.util.*,java.sql.*"%>
+<%@ page import = "javax.servlet.http.*,javax.servlet.*" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix = "sql"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -172,21 +175,17 @@ desired effect
                     <!-- User Account Menu -->
                     <li class="dropdown user user-menu">
                         <!-- Menu Toggle Button -->
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <!-- The user image in the navbar-->
+<!--                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                             The user image in the navbar
                             <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                            <!-- hidden-xs hides the username on small devices so only the image appears. -->
+                             hidden-xs hides the username on small devices so only the image appears. 
                             <span class="hidden-xs">Alexander Pierce</span>
                         </a>
                         <ul class="dropdown-menu">
-                            <!-- The user image in the menu -->
+                             The user image in the menu 
                             <li class="user-header">
                                 <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
-                                <p>
-                                    Alexander Pierce - Web Developer
-                                    <small>Member since Nov. 2012</small>
-                                </p>
                             </li>
                             <li class="user-footer">
                                 <div class="pull-left">
@@ -196,11 +195,25 @@ desired effect
                                     <a href="#" class="btn btn-default btn-flat">Sign out</a>
                                 </div>
                             </li>
-                        </ul>
+                        </ul>-->
                     </li>
                     <!-- Control Sidebar Toggle Button -->
                     <li>
-                        <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                        <sql:setDataSource var = "snapshot" driver = "com.mysql.jdbc.Driver"
+                           url = "jdbc:mysql://localhost/webtek-database-finals"
+                           user = "root"  password = ""/>
+                        <sql:query dataSource = "${snapshot}" var = "result">
+                            SELECT CONCAT(fname, " ",lname) name
+                            FROM `service provider`
+                            WHERE `service provider`.username = ?;
+                            <sql:param value="${sessionScope.username}"/>
+                        </sql:query>
+                            <c:forEach var = "row" items = "${result.rows}">
+                        <p class="page-header"> Welcome, <c:out value="${row.name}"/> ! </p>
+                        </c:forEach>
+                    </li>
+                    <li>
+                        <a href="logout" data-toggle="control-sidebar">Logout<i class="fa fa-angle-down"></i></a>
                     </li>
                     </ul>
                 </div>

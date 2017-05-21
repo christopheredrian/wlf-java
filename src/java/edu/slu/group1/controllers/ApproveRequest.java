@@ -36,19 +36,25 @@ public class ApproveRequest extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        PrintWriter out = response.getWriter();
+
         try {
             String req_id = (String) request.getParameter("req_id");
 
             Connection conn = DatabaseConnection.getConnection();
             Statement stmt = conn.createStatement();
-            String sql = "UPDATE requests SET status = 'Approved' WHERE req_id =" + req_id;
+            String sql = "INSERT INTO arrangement (`cu_id`, `sp_id`, `service_id`, `date`, `targetDate`) SELECT `cu_id`, `sp_id`, `service_id`, `date`, `targetDate` FROM requests WHERE req_id =" + req_id;
             stmt.executeUpdate(sql);
-            PrintWriter out = response.getWriter();
+            sql = "DELETE from requests ' WHERE req_id =" + req_id;
+            stmt.executeUpdate(sql);
 //            out.print("@approve" + req_id);
+            request.setAttribute("message", "Requests approved!");
             request.getRequestDispatcher("PenReq.jsp").forward(request, response);
 
         } catch (SQLException ex) {
             Logger.getLogger(ApproveRequest.class.getName()).log(Level.SEVERE, null, ex);
+            out.print("test!!");
+
         }
 
     }

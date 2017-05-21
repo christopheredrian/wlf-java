@@ -23,11 +23,12 @@
                            url = "jdbc:mysql://localhost/webtek-database-finals"
                            user = "root"  password = ""/>
         <sql:query dataSource = "${snapshot}" var = "result">
-            SELECT * FROM customer INNER JOIN invoice ON customer.cu_id=invoice.cu_id 
-            INNER JOIN arrangement ON customer.cu_id=arrangement.cu_id 
-            INNER JOIN services ON arrangement.service_id=services.service_id 
-            INNER JOIN `service provider` on arrangement.sp_id = `service provider`.sp_id
-            WHERE `service provider`.username = ?;
+            SELECT requests.req_id, requests.cu_id, customer.fname, customer.lname, 
+            requests.service_id, service_name, requests.date, requests.status 
+            FROM requests INNER JOIN customer ON requests.cu_id=customer.cu_id 
+            INNER JOIN `service provider` on `service provider`.sp_id = requests.sp_id
+            inner join services on services.service_id = requests.service_id 
+            WHERE `service provider`.username = ? and requests.status = 'Approved';
             <sql:param value="${sessionScope.username}"/>
         </sql:query>
 
@@ -45,7 +46,7 @@
                 <c:forEach var = "row" items = "${result.rows}">
                     <tr>
                         <td><c:out value = "${row.fname} ${row.lname}"/></td>
-                        <td><c:out value = "${row.serviceAvailed}"/></td>
+                        <td><c:out value = "${row.service_name}"/></td>
                         <td><c:out value = "${row.date}"/></td>
                     </tr>
                 </c:forEach>
