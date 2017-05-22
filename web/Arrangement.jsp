@@ -25,7 +25,8 @@
 
         <sql:query dataSource = "${snapshot}" var = "result">
             SELECT arrangement.arrangement_id, arrangement.cu_id, customer.fname, customer.lname, 
-            arrangement.service_id, service_name, arrangement.date, arrangement.targetDate 
+            arrangement.service_id, service_name, arrangement.date, arrangement.targetDate,
+            arrangement.payment_type 
             FROM arrangement INNER JOIN customer ON arrangement.cu_id=customer.cu_id 
             INNER JOIN `service provider` on `service provider`.sp_id = arrangement.sp_id
             inner join services on services.service_id = arrangement.service_id 
@@ -58,13 +59,19 @@
                         <td><c:out value = "${row.date}"/></td>
                         <td><c:out value = "${row.targetDate}"/></td>
                         <td>
-                            <form action="mark" method="post">
-                                <input type="hidden" name="cu_id" value="${row.cu_id}">
-                                <input type="hidden" name="req_id" value="${row.req_id}">
-                                <button type="submit" class="btn btn-flat btn-success btn-block">
-                                    Mark as Paid
-                                </button>
-                            </form>
+                            <c:if test="${row.payment_type == 'Online'}">
+                                <form action="mark" method="post">
+                                    <input type="hidden" name="arrangement_id" value="${row.arrangement_id}">
+                                    <input type="hidden" name="cu_id" value="${row.cu_id}">
+                                    <input type="hidden" name="req_id" value="${row.req_id}">
+                                    <button type="submit" class="btn btn-flat btn-success btn-block">
+                                        Mark as Paid
+                                    </button>
+                                </form>
+                            </c:if>
+                            <c:if test="${row.payment_type == 'Meet-up'}">
+                               Paid
+                            </c:if>
                         </td>
                     </tr>
                 </c:forEach>

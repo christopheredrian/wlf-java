@@ -33,7 +33,6 @@ public class MarkPaid extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -41,11 +40,13 @@ public class MarkPaid extends HttpServlet {
 
         try {
             String arrangement_id = (String) request.getParameter("arrangement_id");
-            
+            out.append(arrangement_id);
 
             Connection conn = DatabaseConnection.getConnection();
             Statement stmt = conn.createStatement();
-            String sql = "INSERT INTO invoice (`cu_id`, `sp_id`, `service_id`, `date`, `total_amount`) SELECT `cu_id`, `arrangement`.`sp_id`, `arrangement`.`service_id`, `targetDate`, `services`.`price` FROM arrangement INNER JOIN services ON services.service_id = arrangement.service_id WHERE arrangement_id ="+arrangement_id;
+            String sql = "INSERT INTO invoice (`cu_id`, `sp_id`, `service_id`, `date`, `total_amount`) SELECT `cu_id`, `arrangement`.`sp_id`, `arrangement`.`service_id`, `targetDate`, `services`.`price` FROM arrangement INNER JOIN services ON services.service_id = arrangement.service_id WHERE arrangement_id =" + arrangement_id;
+            stmt.executeUpdate(sql);
+            sql = "UPDATE arrangement SET payment_type = 'Meet-up' WHERE arrangement_id =" + arrangement_id;
             stmt.executeUpdate(sql);
 //            out.print("@approve" + req_id);
             request.setAttribute("message", "Transaction done and paid!");
@@ -58,8 +59,6 @@ public class MarkPaid extends HttpServlet {
         }
 
     }
-
-
 
     /**
      * Returns a short description of the servlet.
