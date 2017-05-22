@@ -53,7 +53,9 @@
                         <div class="info-box-content">
                             <span class="info-box-text">Transaction History</span>
                             <sql:query dataSource = "${snapshot}" var = "result">
-                                SELECT COUNT(*) as 'approvedRequests' from invoice INNER JOIN `service provider` on `service provider`.sp_id = invoice.sp_id WHERE username = ?;
+                                SELECT COUNT(*) as 'approvedRequests' from requests 
+                                INNER JOIN `service provider` on `service provider`.sp_id = requests.sp_id 
+                                WHERE username = ? and requests.status="Approved";
                             <sql:param value="${sessionScope.username}"/>
                             </sql:query>
                             <span class="info-box-number"> ${result.rows[0].approvedRequests}</span>
@@ -86,11 +88,12 @@
             <!-- /.box-footer -->
         </div>
         <sql:query dataSource = "${snapshot}" var = "result">
-            SELECT date as 'Date',  service_name as 'Service' 
+            SELECT targetDate as 'Date',  service_name as 'Service' 
             FROM `webtek-database-finals`.requests 
             INNER JOIn `service provider` on `service provider`.`sp_id` = requests.sp_id 
             INNER JOIN services on services.service_id = requests.service_id 
-            WHERE username = ? ORDER BY DATE;
+            WHERE username = ? AND requests.status = "Approved" 
+            ORDER BY DATE;
             <sql:param value="${sessionScope.username}"/>
         </sql:query>
 

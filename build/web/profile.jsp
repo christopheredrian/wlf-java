@@ -15,9 +15,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Profile</title>
         <style>
-            input[type=text]{
-                width:50%;
-            }
+
         </style>
     </head>
     <body>
@@ -30,61 +28,68 @@
             SELECT * from `service provider` where username = ?
             <sql:param value="${sessionScope.username}"/>
         </sql:query>
-        <form method="post">
-            <table class="table table-bordered">
-                <c:forEach var = "row" items = "${result.rows}">
-                    <tr>
-                        <th>Service Provider Name</th>
-                        <td><c:out value = "${row.fname} ${row.lname}"/></td>
-                    </tr>
-                    <tr>
-                        <th>Address</th>
+        <h1 class="page-header" style="border-bottom: 1px solid gray">Edit Profile</h1>
+        <form method="post" style="width: 80%; padding: 5%">
+            <c:forEach var = "row" items = "${result.rows}">
+                <div class="form-group">
+                    <label> Service Provider Name</label>
+                    <input readonly class="form-control" type="text" name="username" value="<c:out  value = "${row.fname} ${row.lname}"/>">
+                </div>
 
-                        <td><input type="text" name="address" value="${row.address}"/></td>
-                    </tr>
-                    <tr>
-                        <th>Telephone Number</th>
+                <div class="form-group">
+                    <label>Address</label>
+                    <input class="form-control" type="text" name="address" value="${row.address}" required/>
+                </div>
 
-                        <td><input type="text" name="tel_no" value="${row.tel_no}"/></td>
-                    </tr>
-                    <tr>
-                        <th>Email Address</th>
+                <div class="form-group">
+                    <label>Telephone Number</label>
+                    <input class="form-control" type="text" name="tel_no" value="${row.tel_no}" required/>
+                </div>  
 
-                        <td><input type="text" name="email_address" value="${row.email_address}"/></td>
-                    </tr>
-                    <tr>
-                        <th>Birthday</th>
-                        <td><c:out value = "${row.birthday}"/></td>
-                    </tr>
-                    <tr>
-                        <th>Gender</th>
-                        <td><c:out value = "${row.gender}"/></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td><input type="submit" value="submit"></td>
-                    </tr>
-                </c:forEach>
-                <c:if test="${pageContext.request.method=='POST'}">
-                    <c:catch var="exception">
-                        <sql:update dataSource="${snapshot}" var="updatedTable">
-                            UPDATE `service provider`
-                            SET address=?, tel_no=?, email_address=? WHERE username=?
-                            <sql:param value="${param.address}" />
-                            <sql:param value="${param.tel_no}" />
-                            <sql:param value="${param.email_address}"/>
-                            <sql:param value="${sessionScope.username}"/>
-                        </sql:update>
-                        <c:if test="${updatedTable>=1}">
-                            <c:redirect url="profile.jsp"/>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input class="form-control" type="email" name="email_address" value="${row.email_address}" required/>
+                </div>
+
+                <div class="form-group">
+                    <label>Birthday</label>
+                    <input readonly class="form-control" type="text" name="birthday" value=" <c:out value = "${row.birthday}"/>">
+
+
+                </div>
+
+                <div class="form-group">
+                    <label>  Gender</label>
+                    <label class="form-control">
+                        <c:if test="${row.gender == 'm'}">
+                            Male
                         </c:if>
-                    </c:catch>
-                    <c:if test="${exception!=null}">
-                        <c:out value="Unable to update data in database." />
+                        <c:if test="${row.gender == 'f'}">
+                            Female
+                        </c:if>
+                    </label>
+                </div>
+
+                <input class="btn btn-info btn-flat pull-right" type="submit" value="Update">
+            </c:forEach>
+            <c:if test="${pageContext.request.method=='POST'}">
+                <c:catch var="exception">
+                    <sql:update dataSource="${snapshot}" var="updatedTable">
+                        UPDATE `service provider`
+                        SET address=?, tel_no=?, email_address=? WHERE username=?
+                        <sql:param value="${param.address}" />
+                        <sql:param value="${param.tel_no}" />
+                        <sql:param value="${param.email_address}"/>
+                        <sql:param value="${sessionScope.username}"/>
+                    </sql:update>
+                    <c:if test="${updatedTable>=1}">
+                        <c:redirect url="profile.jsp"/>
                     </c:if>
+                </c:catch>
+                <c:if test="${exception!=null}">
+                    <c:out value="Unable to update data in database." />
                 </c:if>
-            </table>       
-    </body>
-    <%@include file="partials/footer.jsp"%>  
-</html>
+            </c:if>
+            </body>
+            <%@include file="partials/footer.jsp"%>  
+            </html>

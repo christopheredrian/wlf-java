@@ -6,6 +6,9 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import = "java.io.*,java.util.*,java.sql.*"%>
+<%@ page import = "javax.servlet.http.*,javax.servlet.*" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix = "sql"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -35,7 +38,7 @@
           page. However, you can choose any other skin. Make sure you
           apply the skin class to the body tag so the changes take effect.
     -->
-    <link rel="stylesheet" href="dist/css/skins/skin-blue.min.css">
+    <link rel="stylesheet" href="dist/css/skins/skin-green.min.css">
     <link href='fullcalendar/fullcalendar.min.css' rel='stylesheet'/>
     <link href='fullcalendar/fullcalendar.print.min.css' rel='stylesheet' media='print'/>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -65,7 +68,7 @@ desired effect
 |               | sidebar-mini                            |
 |---------------------------------------------------------|
 -->
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-green sidebar-mini">
     <div class="wrapper">
 
         <!-- Main Header -->
@@ -136,22 +139,7 @@ desired effect
                         </ul>
                     </li>
                     <!-- Notifications Menu -->
-                    <li class="dropdown notifications-menu">
-                        <!-- Menu toggle button -->
 
-                        <ul class="dropdown-menu">
-                            <li>
-                                <!-- Inner Menu: contains the notifications -->
-                                <ul class="menu">
-                                    <li><!-- start notification -->
-                                        <a href="#">
-                                    </li>
-                                    <!-- end notification -->
-                                </ul>
-                            </li>
-                            <li class="footer"><a href="#">View all</a></li>
-                        </ul>
-                    </li>
                     <!-- Tasks Menu -->
                     <li class="dropdown tasks-menu">
                         <!-- Menu Toggle Button -->
@@ -170,38 +158,35 @@ desired effect
                         </ul>
                     </li>
                     <!-- User Account Menu -->
-                    <li class="dropdown user user-menu">
-                        <!-- Menu Toggle Button -->
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <!-- The user image in the navbar-->
-                            <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                            <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                            <span class="hidden-xs">Alexander Pierce</span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <!-- The user image in the menu -->
-                            <li class="user-header">
-                                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
-                                <p>
-                                    Alexander Pierce - Web Developer
-                                    <small>Member since Nov. 2012</small>
-                                </p>
-                            </li>
-                            <li class="user-footer">
-                                <div class="pull-left">
-                                    <a href="profile.jsp" class="btn btn-default btn-flat">Profile</a>
-                                </div>
-                                <div class="pull-right">
-                                    <a href="#" class="btn btn-default btn-flat">Sign out</a>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
                     <!-- Control Sidebar Toggle Button -->
                     <li>
-                        <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                        <sql:setDataSource var = "snapshot" driver = "com.mysql.jdbc.Driver"
+                                           url = "jdbc:mysql://localhost/webtek-database-finals"
+                                           user = "root"  password = ""/>
+                        <sql:query dataSource = "${snapshot}" var = "result">
+                            SELECT CONCAT(fname, " ",lname) name
+                            FROM `service provider`
+                            WHERE `service provider`.username = ?;
+                            <sql:param value="${sessionScope.username}"/>
+                        </sql:query>
+                        
+                   
+
                     </li>
+                   
+                    <li>
+                        <c:forEach var = "row" items = "${result.rows}">
+                        <a data-toggle="control-sidebar"><i class="fa fa-user"></i> <c:out value="${row.name}"/></a>
+
+                            <style>
+                                p.page-header {
+                                    color: whitesmoke;
+                                }
+                            </style>
+                        </c:forEach>
+                    </li>
+                   
                     </ul>
                 </div>
             </nav>
@@ -213,7 +198,7 @@ desired effect
             <section class="sidebar">
 
                 <!-- Sidebar user panel (optional) -->
-                
+
 
                 <ul class="sidebar-menu">
                     <li class="header">Main Navigation</li>
@@ -230,9 +215,9 @@ desired effect
 
                     <li class="treeview">
                     <li><a href="Services.jsp"><i class="fa fa-car"></i>Services</a></li>
-                    <li><a href="AddServices.jsp"><i class="fa fa-car"></i>Add Services</a></li>
-                    <li><a href="PenReq.jsp"><i class="fa fa-car"></i>Pending Requests</a></li>
-                    <li><a href="TransHis.jsp"><i class="fa fa-usd"></i>Transactions</a></li>
+                    <li><a href="AddServices.jsp"><i class="fa fa-book"></i>Add Services</a></li>
+                    <li><a href="PenReq.jsp"><i class="fa fa-clock-o"></i>Pending Requests</a></li>
+                    <li><a href="TransHis.jsp"><i class="fa fa-dollar"></i>Transactions</a></li>
 
                 </ul>
 
@@ -240,7 +225,11 @@ desired effect
                     <li class="header">Others</li>
 
                     <li class="treeview">
-                    <li><a href="profile.jsp"><i class="fa fa-car"></i>Account Settings</a></li>
+                    <li><a href="profile.jsp"><i class="fa fa-pencil"></i>Account Settings</a></li>
+                     <li>
+                        <a href="logout" data-toggle="control-sidebar"><i class="fa fa-user"></i> Logout</a>
+                    </li>
+
 
                 </ul>
                 <!-- /.sidebar-menu -->

@@ -41,7 +41,7 @@ public class ApproveRequest extends HttpServlet {
 
             Connection conn = DatabaseConnection.getConnection();
             Statement stmt = conn.createStatement();
-            String sql = "UPDATE requests SET status = 'Approved' WHERE req_id =" + req_id;
+            String sql = "InWHERE req_id =" + req_id;
             stmt.executeUpdate(sql);
             PrintWriter out = response.getWriter();
 //            out.print("@approve" + req_id);
