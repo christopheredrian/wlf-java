@@ -25,22 +25,27 @@
                            user = "root"  password = ""/>
         <sql:query dataSource = "${snapshot}" var = "result">
             SELECT requests.req_id, requests.cu_id, customer.fname, customer.lname, 
-            requests.service_id, service_name, requests.date, requests.targetDate, requests.status
+            requests.service_id, service_name, requests.date, requests.targetDate, requests.status 
             FROM requests INNER JOIN customer ON requests.cu_id=customer.cu_id 
             INNER JOIN `service provider` on `service provider`.sp_id = requests.sp_id
-            inner join services on services.service_id = requests.service_id 
+            INNER JOIN services on services.service_id = requests.service_id 
             WHERE `service provider`.username = ? and requests.status = 'Pending';
             <sql:param value="${sessionScope.username}"/>
 
         </sql:query>
         <h1 class="page-header" style="margin-bottom: 40px">Pending Requests</h1>
-
+        <c:if test="${mesasge}">
+            <div class="alert alert-success">
+                <strong class="">Success!</strong> ${message}
+            </div>
+        </c:if>
         <table id="data-table" class="table table-bordered">
             <thead>
                 <tr>
 
                     <th>Customer Name</th>
                     <th>Service Availed</th>
+                    <th>Date of Request</th>
                     <th>Target Date of Tutorial</th>
                     <th>Date of Request</th>
                     <th>Action</th>
@@ -55,6 +60,7 @@
                         <td><c:out value = "${row.service_name}"/></td>
                         <td><c:out value = "${row.targetDate}"/></td>
                         <td><c:out value = "${row.date}"/></td>
+
                         <td>
                             <c:if test="${row.status == 'Pending'}">
                                 <form action="approve" method="post">

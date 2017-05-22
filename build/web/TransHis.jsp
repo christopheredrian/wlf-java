@@ -29,6 +29,7 @@
             INNER JOIN `service provider` on `service provider`.sp_id = invoice.sp_id
             inner join services on services.service_id = invoice.service_id 
             WHERE `service provider`.username = ?;
+
             <sql:param value="${sessionScope.username}"/>
         </sql:query>
 
