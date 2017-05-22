@@ -226,41 +226,6 @@
   
 </script>
 
- <script>
-            $(function () {
-                $('input').iCheck({
-                    checkboxClass: 'icheckbox_square-blue',
-                    radioClass: 'iradio_square-blue',
-                increaseArea: '20%' // optional
-            });
-                $("form").validate({
-                 rules: {
-                    service_name: "required",
-                    description: "required",
-                    price: {
-                        required: true,
-                        minlength: 6,
-                        $('#price')
-                                .formValidation('number','integer')
-                    },
-                    messages: {
-                        sevice_name: "Please enter your name",
-                        description: "Please enter your decription",
-                        price: "Please enter price as a number"
-                    }
-                 }
-    // Specify validation error messages
-
-    // Make sure the form is submitted to the destination defined
-    // in the "action" attribute of the form when valid
-    submitHandler: function(form) {
-      form.submit();
-  }
-});
-                
-            });
-            $("#AddServices").validate();
-        </script>
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
      user experience. Slimscroll is required when using the
