@@ -217,6 +217,7 @@ desired effect
                     <li><a href="Services.jsp"><i class="fa fa-car"></i>Services</a></li>
                     <li><a href="AddServices.jsp"><i class="fa fa-book"></i>Add Services</a></li>
                     <li><a href="PenReq.jsp"><i class="fa fa-clock-o"></i>Pending Requests</a></li>
+                    <li><a href="Arrangement.jsp"><i class="fa fa-dollar"></i>Arrangements</a></li>
                     <li><a href="TransHis.jsp"><i class="fa fa-dollar"></i>Transactions</a></li>
 
                 </ul>

@@ -20,10 +20,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author chris
+ * @author Mark
  */
-@WebServlet(name = "Approve", urlPatterns = {"/approve"})
-public class ApproveRequest extends HttpServlet {
+@WebServlet(name = "MarkPaid", urlPatterns = {"/mark"})
+public class MarkPaid extends HttpServlet {
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -33,27 +33,33 @@ public class ApproveRequest extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        PrintWriter out = response.getWriter();
+
         try {
-            String req_id = (String) request.getParameter("req_id");
+            String arrangement_id = (String) request.getParameter("arrangement_id");
+            
 
             Connection conn = DatabaseConnection.getConnection();
             Statement stmt = conn.createStatement();
-            String sql = "INSERT INTO arrangement(`cu_id`, `sp_id`, `service_id`, `date`, `targetDate`) SELECT `cu_id`, `sp_id`, `service_id`, `date`, `targetDate` FROM requests WHERE req_id =" + req_id;
+            String sql = "INSERT INTO invoice (`cu_id`, `sp_id`, `service_id`, `date`, `total_amount`) SELECT `cu_id`, `arrangement`.`sp_id`, `arrangement`.`service_id`, `targetDate`, `services`.`price` FROM arrangement INNER JOIN services ON services.service_id = arrangement.service_id WHERE arrangement_id ="+arrangement_id;
             stmt.executeUpdate(sql);
-            sql = "DELETE FROM requests WHERE req_id =" + req_id;
-            stmt.executeUpdate(sql);
-            PrintWriter out = response.getWriter();
 //            out.print("@approve" + req_id);
-            request.getRequestDispatcher("PenReq.jsp").forward(request, response);
+            request.setAttribute("message", "Transaction done and paid!");
+            request.getRequestDispatcher("Arrangement.jsp").forward(request, response);
 
         } catch (SQLException ex) {
             Logger.getLogger(ApproveRequest.class.getName()).log(Level.SEVERE, null, ex);
+            out.print("test!!");
+
         }
 
     }
+
+
 
     /**
      * Returns a short description of the servlet.

@@ -25,7 +25,7 @@
                            user = "root"  password = ""/>
         <sql:query dataSource = "${snapshot}" var = "result">
             SELECT requests.req_id, requests.cu_id, customer.fname, customer.lname, 
-            requests.service_id, service_name, requests.date, requests.status 
+            requests.service_id, service_name, requests.date, requests.targetDate, requests.status
             FROM requests INNER JOIN customer ON requests.cu_id=customer.cu_id 
             INNER JOIN `service provider` on `service provider`.sp_id = requests.sp_id
             inner join services on services.service_id = requests.service_id 
@@ -38,11 +38,11 @@
         <table id="data-table" class="table table-bordered">
             <thead>
                 <tr>
-                    <th>Request Id</th>
+
                     <th>Customer Name</th>
                     <th>Service Availed</th>
                     <th>Target Date of Tutorial</th>
-                    <th>Status</th>
+                    <th>Date of Request</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -50,27 +50,27 @@
             <tbody>
                 <c:forEach var = "row" items = "${result.rows}">
                     <tr>
-                        <td><c:out value = "${row.req_id}"/></td>
+
                         <td><c:out value = "${row.fname} ${row.lname}"/></td>
                         <td><c:out value = "${row.service_name}"/></td>
+                        <td><c:out value = "${row.targetDate}"/></td>
                         <td><c:out value = "${row.date}"/></td>
-                        <td><c:out value = "${row.status}"/></td>
                         <td>
                             <c:if test="${row.status == 'Pending'}">
                                 <form action="approve" method="post">
-                                <input type="hidden" name="cu_id" value="${row.cu_id}">
-                                <input type="hidden" name="req_id" value="${row.req_id}">
-                                <button type="submit" class="btn btn-flat btn-success btn-block">
-                                    Approve
-                                </button>
-                            </form>
-                            <form action="reject" method="post">
-                                <input type="hidden" name="req_id" value="${row.req_id}">
-                                <input type="hidden" name="cu_id" value="${row.cu_id}">
-                                <button type="submit" class="btn btn-flat btn-danger btn-block">
-                                    Reject
-                                </button>
-                            </form>
+                                    <input type="hidden" name="cu_id" value="${row.cu_id}">
+                                    <input type="hidden" name="req_id" value="${row.req_id}">
+                                    <button type="submit" class="btn btn-flat btn-success btn-block">
+                                        Approve
+                                    </button>
+                                </form>
+                                <form action="reject" method="post">
+                                    <input type="hidden" name="req_id" value="${row.req_id}">
+                                    <input type="hidden" name="cu_id" value="${row.cu_id}">
+                                    <button type="submit" class="btn btn-flat btn-danger btn-block">
+                                        Reject
+                                    </button>
+                                </form>
                             </c:if>
                         </td>
                     </tr>

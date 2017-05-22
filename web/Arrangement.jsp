@@ -24,28 +24,42 @@
                            user = "root"  password = ""/>
 
         <sql:query dataSource = "${snapshot}" var = "result">
-            SELECT * FROM arrangements 
-            INNER JOIN `service provider` ON `service provider`.`sp_id` = services.sp_id 
-            WHERE username = ?;
+            SELECT arrangement.arrangement_id, arrangement.cu_id, customer.fname, customer.lname, 
+            arrangement.service_id, service_name, arrangement.date, arrangement.targetDate 
+            FROM arrangement INNER JOIN customer ON arrangement.cu_id=customer.cu_id 
+            INNER JOIN `service provider` on `service provider`.sp_id = arrangement.sp_id
+            inner join services on services.service_id = arrangement.service_id 
+            WHERE `service provider`.username = ?;
             <sql:param value="${sessionScope.username}"/>
         </sql:query>
-        <a href="AddServices.jsp" class="btn btn-info" role="button" style="float:right;">Add Service</a>
-        <h1 class="page-header" style="margin-bottom: 40px">Services</h1>
+        <h1 class="page-header" style="margin-bottom: 40px">Arrangements</h1>
         <table class="table table-bordered" id="data-table">
             <thead>
                 <tr>
-                    <th>Service Name</th>
-                    <th>Service Description</th>
-                    <th>Price</th>
+                    <th>Customer Name</th>
+                    <th>Service Availed</th>
+                    <th>Date of Request</th>
+                    <th>Target Date</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
 
                 <c:forEach var = "row" items = "${result.rows}">
                     <tr>
+                        <td><c:out value = "${row.fname} ${row.lname}"/></td>
                         <td><c:out value = "${row.service_name}"/></td>
-                        <td><c:out value = "${row.description}"/></td>
-                        <td><c:out value = "${row.price}"/></td
+                        <td><c:out value = "${row.date}"/></td>
+                        <td><c:out value = "${row.targetDate}"/></td>
+                        <td>
+                            <form action="mark" method="post">
+                                <input type="hidden" name="cu_id" value="${row.cu_id}">
+                                <input type="hidden" name="req_id" value="${row.req_id}">
+                                <button type="submit" class="btn btn-flat btn-success btn-block">
+                                    Mark as Paid
+                                </button>
+                            </form>
+                        </td>
                     </tr>
                 </c:forEach>
             </tbody>

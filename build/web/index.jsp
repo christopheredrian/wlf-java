@@ -53,12 +53,12 @@
                         <div class="info-box-content">
                             <span class="info-box-text">Transaction History</span>
                             <sql:query dataSource = "${snapshot}" var = "result">
-                                SELECT COUNT(*) as 'approvedRequests' from requests 
-                                INNER JOIN `service provider` on `service provider`.sp_id = requests.sp_id 
-                                WHERE username = ? and requests.status="Approved";
+                                SELECT COUNT(*) as 'invoice' from invoice 
+                                INNER JOIN `service provider` on `service provider`.sp_id = invoice.sp_id 
+                                WHERE username = ?;
                             <sql:param value="${sessionScope.username}"/>
                             </sql:query>
-                            <span class="info-box-number"> ${result.rows[0].approvedRequests}</span>
+                            <span class="info-box-number"> ${result.rows[0].invoice}</span>
                         </div>
                         <!-- /.info-box-content -->
                     </div>
@@ -89,12 +89,11 @@
         </div>
         <sql:query dataSource = "${snapshot}" var = "result">
             SELECT targetDate as 'Date',  service_name as 'Service' 
-            FROM `webtek-database-finals`.requests 
-            INNER JOIn `service provider` on `service provider`.`sp_id` = requests.sp_id 
-            INNER JOIN services on services.service_id = requests.service_id 
-            WHERE username = ? AND requests.status = "Approved" 
+            FROM arrangement
+            INNER JOIN services on services.service_id = arrangement.service_id 
+            WHERE `arrangement`.sp_id = ?
             ORDER BY DATE;
-            <sql:param value="${sessionScope.username}"/>
+            <sql:param value="${sessionScope.sp_id}"/>
         </sql:query>
 
         <script>
@@ -116,7 +115,7 @@
             <c:forEach var = "row" items = "${result.rows}">
                                 {
 
-                                    title: '<c:out value = "${row.service_name}"/>',
+                                    title: '<c:out value = "${row.Service}"/>',
                                     start: '<c:out value = "${row.Date}"/>'
                                 },
 
