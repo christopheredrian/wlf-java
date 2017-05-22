@@ -34,7 +34,7 @@
 
         </sql:query>
         <h1 class="page-header" style="margin-bottom: 40px">Pending Requests</h1>
-        <c:if test="${mesasge}">
+        <c:if test="${message!=null}">
             <div class="alert alert-success">
                 <strong class="">Success!</strong> ${message}
             </div>
@@ -45,7 +45,6 @@
 
                     <th>Customer Name</th>
                     <th>Service Availed</th>
-                    <th>Date of Request</th>
                     <th>Target Date of Tutorial</th>
                     <th>Date of Request</th>
                     <th>Action</th>

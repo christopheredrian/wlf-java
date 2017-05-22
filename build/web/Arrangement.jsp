@@ -33,6 +33,11 @@
             <sql:param value="${sessionScope.username}"/>
         </sql:query>
         <h1 class="page-header" style="margin-bottom: 40px">Arrangements</h1>
+        <c:if test="${message!=null}">
+            <div class="alert alert-success">
+                <strong class="">Success!</strong> ${message}
+            </div>
+        </c:if>
         <table class="table table-bordered" id="data-table">
             <thead>
                 <tr>
